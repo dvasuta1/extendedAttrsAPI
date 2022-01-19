@@ -25,6 +25,7 @@ app.get("/warmup", (request, response) => {
 interface AttributeItem {
   gameCode: string;
   gameName: string;
+  studio: string;
   theme: string;
   features: string;
   pay: string;
@@ -39,6 +40,7 @@ app.post("/attributes", async (req, res) => {
     const item: AttributeItem = {
       gameCode: req.body["gameCode"],
       gameName: req.body["gameName"],
+      studio: req.body["studio"],
       theme: req.body["theme"],
       features: req.body["features"],
       pay: req.body["pay"],
