@@ -17,6 +17,7 @@
     <script defer src="/__/firebase/9.6.3/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/9.6.3/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/9.6.3/firebase-performance-compat.js"></script>
+    <script src="app.js"></script>
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
@@ -39,14 +40,16 @@
     </style>
   </head>
   <body>
-    <div id="message">
+    <!--div id="message">
       <h2>Welcome</h2>
       <h1>Firebase Hosting Setup Complete</h1>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
+    </!--div> -->
     <p id="load">Firebase SDK Loading&hellip;</p>
-
+    <input type="text" id="fName" placeholder="First Name">
+    <input type="text" id="lName" placeholder="Last Name">
+    <button onClick="addName()"> Add Name </button>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const loadEl = document.querySelector('#load');
@@ -79,11 +82,23 @@
             'performance',
           ].filter(feature => typeof app[feature] === 'function');
           loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e: any) {
+        } catch (e) {
           console.error(e);
           loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
         }
       });
+      function addName() {
+        var _firstName = document.getElementById("fName").value;
+        var _lastName = document.getElementById("lName").value;
+
+        var getAllItems = firebase.functions().httpsCallable('getAllItems');
+        //For the fullName we have defined that fullName takes some data as a parameter 
+        getAllItems().then((result) => {
+          console.log(result);
+        }).catch((error) => {
+          console.log(error);
+        })
+       }
     </script>
   </body>
 </html>
